@@ -21,7 +21,7 @@ I built this project because I am actively searching for remote data analyst and
 
 **app.py** is the main Flask application. It connects to the database and defines every route. The `/` route shows all applications. The `/add` and `/edit/<id>` routes show forms and save data with INSERT and UPDATE queries, after checking that the required fields are filled in and that the status is one of the allowed values. The `/delete/<id>` route removes an application. The `/followups` route uses SQLite date functions to find applications not updated in at least 7 days and to calculate how many days each has been waiting. The `/followed_up/<id>` route resets an application's last-updated time. The `/stats` route counts applications by status with GROUP BY and calculates the rates. The `/export` route builds a CSV file in memory with Python's csv module and sends it as a download. A small helper function, `form_value`, reads form fields and strips extra spaces so that stray spaces are not saved.
 
-**tracker.db** is the SQLite database. It has one table, `applications`, with columns for id, company, role, link, location, date applied, status, notes, and last updated. The status column defaults to "Applied" and the last-updated column defaults to the current time.
+**schema.sql** creates the SQLite database, tracker.db. It has one table, `applications`, with columns for id, company, role, link, location, date applied, status, notes, and last updated. The status column defaults to "Applied" and the last-updated column defaults to the current time.
 
 **templates/layout.html** is the shared page layout. It loads Bootstrap, shows the navigation bar, highlights the current page, and displays success messages after actions like adding or deleting an application.
 
@@ -50,6 +50,13 @@ I built this project because I am actively searching for remote data analyst and
 **CSV export.** As someone working toward a data analyst role, I wanted my data to be easy to analyse outside the app. CSV opens directly in Excel and can be imported into Power BI.
 
 **Flask.** I chose Flask because I learned it in CS50's Week 9 and it let me combine Python, SQL, and HTML in one project.
+## How to Run
+
+1. Install Flask: `pip install -r requirements.txt`
+2. Create the database: `sqlite3 tracker.db < schema.sql`
+3. Start the app: `flask run`
+4. Open the link shown in the terminal (usually http://127.0.0.1:5000)
+
 
 ## Future Improvements
 
