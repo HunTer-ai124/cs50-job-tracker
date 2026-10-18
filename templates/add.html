@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Application
+{% endblock %}
+
+{% block main %}
+    <h1 class="mb-4">Add Application</h1>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form action="/add" method="post" class="add-form">
+        <div class="mb-3">
+            <label for="company" class="form-label">Company *</label>
+            <input type="text" id="company" name="company" class="form-control" autocomplete="off" required>
+        </div>
+        <div class="mb-3">
+            <label for="role" class="form-label">Role *</label>
+            <input type="text" id="role" name="role" class="form-control" autocomplete="off" required>
+        </div>
+        <div class="mb-3">
+            <label for="link" class="form-label">Job link</label>
+            <input type="url" id="link" name="link" class="form-control" autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" id="location" name="location" class="form-control" placeholder="e.g. Remote" autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label for="date_applied" class="form-label">Date applied *</label>
+            <input type="date" id="date_applied" name="date_applied" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" name="status" class="form-select">
+                {% for status in statuses %}
+                    <option value="{{ status }}">{{ status }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea id="notes" name="notes" class="form-control" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+{% endblock %}

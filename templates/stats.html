@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Stats
+{% endblock %}
+
+{% block main %}
+    <h1 class="mb-4">Stats</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card text-center stat-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Applications</h5>
+                    <p class="stat-number">{{ total }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center stat-card">
+                <div class="card-body">
+                    <h5 class="card-title">Response Rate</h5>
+                    <p class="stat-number">{{ response_rate }}%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center stat-card">
+                <div class="card-body">
+                    <h5 class="card-title">Interview Rate</h5>
+                    <p class="stat-number">{{ interview_rate }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="h4 mb-3">By Status</h2>
+    <table class="table table-striped status-table">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th class="text-end">Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for status, count in counts.items() %}
+                <tr>
+                    <td>{{ status }}</td>
+                    <td class="text-end">{{ count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

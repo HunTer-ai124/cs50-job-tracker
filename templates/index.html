@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="m-0">My Applications</h1>
+        <a href="/export" class="btn btn-success">Export CSV</a>
+    </div>
+
+    {% if applications %}
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Location</th>
+                    <th>Date Applied</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                    <tr>
+                        <td>
+                            {% if app.link %}
+                                <a href="{{ app.link }}" target="_blank">{{ app.company }}</a>
+                            {% else %}
+                                {{ app.company }}
+                            {% endif %}
+                        </td>
+                        <td>{{ app.role }}</td>
+                        <td>{{ app.location or "" }}</td>
+                        <td>{{ app.date_applied }}</td>
+                        <td><span class="badge text-bg-{{ status_colors[app.status] }}">{{ app.status }}</span></td>
+                        <td><a href="/edit/{{ app.id }}" class="btn btn-sm btn-outline-primary">Edit</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="text-center py-5">
+            <p class="lead">No applications yet.</p>
+            <a href="/add" class="btn btn-primary">Add your first application</a>
+        </div>
+    {% endif %}
+{% endblock %}

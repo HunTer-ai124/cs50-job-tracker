@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Follow-ups
+{% endblock %}
+
+{% block main %}
+    <h1 class="mb-2">Follow-ups</h1>
+    <p class="text-muted mb-4">Applications with no update in 7 or more days.</p>
+
+    {% if applications %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Date Applied</th>
+                    <th>Days Waiting</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                    <tr>
+                        <td>{{ app.company }}</td>
+                        <td>{{ app.role }}</td>
+                        <td>{{ app.date_applied }}</td>
+                        <td>{{ app.days_waiting }}</td>
+                        <td>
+                            <form action="/followed_up/{{ app.id }}" method="post">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Followed up</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-success">You're all caught up. No follow-ups needed right now.</div>
+    {% endif %}
+{% endblock %}
